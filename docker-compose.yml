@@ -1,0 +1,15 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    container_name: library_postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: library
+    volumes:
+      - ./data:/var/lib/postgresql/data
+      - ./created_table.sql:/docker-entrypoint-initdb.d/created_table.sql
+    ports:
+      - 5432:5432
