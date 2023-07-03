@@ -23,6 +23,21 @@ CREATE TABLE public.Readers (
   Patronymic VARCHAR(255),
   Address VARCHAR(255),
   Phone VARCHAR(20),
-  BookCode INT,
-  FOREIGN KEY (BookCode) REFERENCES public.Books (BookCode)
+);
+
+CREATE TABLE public.Author (
+  AuthorID SERIAL PRIMARY KEY,
+  Name VARCHAR(255),
+  Surname VARCHAR(255),
+  Patronymic VARCHAR(255),
+);
+
+CREATE TABLE public.Author_Books (
+FOREIGN KEY (AuthorID) REFERENCES public.Author (AuthorID),
+FOREIGN KEY (BookCode) REFERENCES public.Books (BookCode)
+);
+
+CREATE TABLE public.Issuing_Books (
+FOREIGN KEY (ReaderID) REFERENCES public.Readers (ReaderID),
+FOREIGN KEY (BookCode) REFERENCES public.Books (BookCode)
 );

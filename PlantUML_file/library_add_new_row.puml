@@ -7,8 +7,6 @@ entity "Читатели" as readers {
   ФИО
   Адрес
   Телефон
-  --
-  Шифр книги [FK]
 }
 
 entity "Книги" as books {
@@ -31,7 +29,28 @@ entity "Издательства" as publishers {
   Город
 }
 
-readers ||--o{ books : Шифр книги
+entity "Автор" as author {
+  + Идентификатор автора [PK]
+  --
+  ФИО автора 
+}
+
+entity "Выдача_Книги" as issuing {
+  --
+  Номер читательского билета [FK]
+  Шифр книги [FK]
+}
+
+entity "Автор_Книги" as book_author {
+  --
+  Идентификатор автора [FK]
+  Шифр книги [FK]
+}
+
 books }o--|| publishers : Идентификатор издательства
+issuing }o--|| books : Шифр книги
+issuing }o--|| readers : Номер читательского билета
+book_author }o--|| author : Идентификатор автора
+book_author }o--|| books : Шифр книги
 
 @enduml
