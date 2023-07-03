@@ -33,11 +33,15 @@ CREATE TABLE public.Author (
 );
 
 CREATE TABLE public.Author_Books (
+AuthorID INT,
+BookCode INT,
 FOREIGN KEY (AuthorID) REFERENCES public.Author (AuthorID),
 FOREIGN KEY (BookCode) REFERENCES public.Books (BookCode)
 );
 
 CREATE TABLE public.Issuing_Books (
+ReaderID INT,
+BookCode INT,
 FOREIGN KEY (ReaderID) REFERENCES public.Readers (ReaderID),
 FOREIGN KEY (BookCode) REFERENCES public.Books (BookCode)
 );
