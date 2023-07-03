@@ -29,7 +29,7 @@ CREATE TABLE public.Author (
   AuthorID SERIAL PRIMARY KEY,
   Name VARCHAR(255),
   Surname VARCHAR(255),
-  Patronymic VARCHAR(255),
+  Patronymic VARCHAR(255)
 );
 
 CREATE TABLE public.Author_Books (
