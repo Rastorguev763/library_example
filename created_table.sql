@@ -22,7 +22,7 @@ CREATE TABLE public.Readers (
   Surname VARCHAR(255),
   Patronymic VARCHAR(255),
   Address VARCHAR(255),
-  Phone VARCHAR(20),
+  Phone VARCHAR(20)
 );
 
 CREATE TABLE public.Author (
