@@ -42,6 +42,9 @@ FOREIGN KEY (BookCode) REFERENCES public.Books (BookCode)
 CREATE TABLE public.Issuing_Books (
 ReaderID INT,
 BookCode INT,
+DateIssue DATE,
+DateDelivery DATE,
+DaysUse INT,
 FOREIGN KEY (ReaderID) REFERENCES public.Readers (ReaderID),
 FOREIGN KEY (BookCode) REFERENCES public.Books (BookCode)
 );
