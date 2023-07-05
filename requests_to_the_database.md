@@ -140,7 +140,7 @@ GROUP BY A.Name, A.Surname, A.Patronymic
 ORDER BY IssuedBooksCount DESC;
 ```
 
-Определить среднее количество прочитанных страниц читателем за день.
+### Определить среднее количество прочитанных страниц читателем за день.
 
 ```sql
 SELECT R.Name || ' ' || R.Patronymic || ' ' || R.Surname AS FullName, B.Title AS BooksRead, B.Pages AS Pages,
@@ -150,4 +150,61 @@ JOIN public.Readers AS R ON IB.ReaderID = R.ReaderID
 JOIN PUBLIC.Books AS B ON IB.BookCode = B.BookCode
 WHERE IB.DateDelivery IS NOT NULL
 GROUP BY R.Name, R.Patronymic, R.Surname, B.Title, B.Pages, (IB.DateIssue - IB.DateDelivery);
+```
+
+## ДОП. ЗАДАНИЯ
+
+Доработать структуру БД «Библиотека» на предмет хранения дополнительной информации о книгах, которые были утеряны.
+
+- Добавить новую таблицу в базу.
+
+```sql
+CREATE TABLE public.LostBooks (
+  LostBooksID SERIAL PRIMARY KEY,
+  DateLost DATE,
+  BookCode INT,
+  ReaderID INT,
+  FOREIGN KEY (BookCode) REFERENCES public.Books (BookCode),
+  FOREIGN KEY (ReaderID) REFERENCES public.Readers (ReaderID)
+);
+```
+
+- Добавить данные в таблицу.
+
+```sql
+INSERT INTO public.LostBooks (DateLost, BookCode, ReaderID)
+VALUES ('2023-01-01', 1, 1),
+       ('2023-03-01', 3, 1),
+       ('2023-06-26', 4, 3),
+       ('2023-03-14', 4, 1);
+```
+
+### Запрос, который определяет, терял ли определенный читатель книги.
+
+```sql
+SELECT R.name AS readersname, B.Title
+FROM PUBLIC.lostbooks as LB
+JOIN PUBLIC.readers AS R On LB.readerid = R.readerid
+JOIN PUBLIC.books AS B ON LB.bookcode = B.bookcode
+```
+
+- Возвращает количество утеренных книг
+
+```sql
+SELECT COUNT(*) AS lost_count
+FROM public.LostBooks AS LB
+JOIN PUBLIC.readers AS R ON LB.ReaderID = R.ReaderID
+WHERE R.Name = 'Иван' AND R.surname = 'Иванов' AND R.patronymic = 'Иванович'
+```
+
+### При потере книг количество доступных книг фонда меняется. Запрос на обновление соответствующей информации.
+
+```sql
+
+```
+
+### Определить сумму потерянных книг по каждому кварталу в течение года.
+
+```sql
+
 ```
