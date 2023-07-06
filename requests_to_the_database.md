@@ -200,11 +200,20 @@ WHERE R.Name = 'Иван' AND R.surname = 'Иванов' AND R.patronymic = 'И�
 ### При потере книг количество доступных книг фонда меняется. Запрос на обновление соответствующей информации.
 
 ```sql
-
+UPDATE public.books AS B
+SET quantity = quantity - 1
+FROM public.LostBooks AS LB
+WHERE LB.bookcode = B.bookcode;
 ```
 
 ### Определить сумму потерянных книг по каждому кварталу в течение года.
 
 ```sql
-
+SELECT
+    EXTRACT('YEAR' FROM LB.datelost) AS year,
+    EXTRACT('QUARTER' FROM LB.datelost) AS quarter,
+    COUNT(LB.lostbooksid) AS total_lost_books
+FROM public.LostBooks as LB
+GROUP BY year, quarter
+ORDER BY year, quarter;
 ```
