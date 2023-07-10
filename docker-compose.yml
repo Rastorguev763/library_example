@@ -10,6 +10,8 @@ services:
       POSTGRES_DB: library
     volumes:
       - ./data:/var/lib/postgresql/data
-      - ./created_table.sql:/docker-entrypoint-initdb.d/created_table.sql
+      - ./created_table.sql:/docker-entrypoint-initdb.d/01_created_table.sql
+      - ./created_table_lostbook.sql:/docker-entrypoint-initdb.d/02_created_table_lostbook.sql
+      - ./insert_data.sql:/docker-entrypoint-initdb.d/03_insert_data.sql
     ports:
       - 5432:5432
